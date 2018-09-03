@@ -25,7 +25,7 @@ Running
 Example
 -------
 
-See /example/output.html for exemplary output.
+See [here](https://mqnc.github.io/pegdebug/example/output.html) for exemplary output.
 
 The left side displays the recursion tree of the parsing process. When a rule matches, it is green and the matching part of the string is highlighted. If it doesn't match, it is read. Both matching and not matching rules can be unfolded and investigated by clicking them.
 
