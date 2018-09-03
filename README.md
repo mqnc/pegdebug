@@ -31,3 +31,7 @@ The left side displays the recursion tree of the parsing process. When a rule ma
 
 The right side shows, what part of the text was matched by what rule. Hovering over the text makes an info window appear that shows the stack of rules that apply for the piece of text. Clicking freezes the info window and the matches for the rules in the rulestack can be highlighted by hovering over them.
 
+Note
+----
+
+This is still in alpha stadium and not yet bullet-proof. Texts can easily be broken by including html patterns or other escapes.
