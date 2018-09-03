@@ -1,0 +1,3231 @@
+
+
+<html>
+<head>
+<title>pegdebug</title>
+<style>
+
+#tree {
+	float: left;
+	width: 50%;
+	height: 100%;
+	overflow: scroll;
+}
+#tree div{
+	display: block;
+	overflow: hidden;
+	color: #800000;
+	background-color:#ffbbaa;
+	font-weight: normal;
+	font-family: monospace;
+	font-size: 12pt;
+	padding: 1pt 1pt 1pt 3pt;
+	border: solid 1px grey;
+	margin: 1pt 1pt 1pt 6pt;
+	cursor: default;
+}
+#tree div.collapsed div{
+	background-color:red;
+	display: none;
+}
+#tree div.hasChildren{
+	font-weight: bold;
+	cursor: pointer;
+}
+#tree div.match{
+	color: #008080;
+	background-color:#ddffff;
+}
+#tree div span{
+	color: #808080;
+	pointer-events: none;
+	font-size: 10pt;
+	font-weight: normal;
+	font-style: italic;
+	white-space: nowrap;
+}
+#tree span.matchbox{
+	padding: 0pt 2pt 0pt 2pt;
+	color: #000000;
+	background-color:#80ff80;
+}
+
+#source {
+	float: left;
+	width: 50%;
+	height: 100%;
+	overflow: scroll;
+}
+#source div{
+	display:inline;
+	font-family:monospace;
+	padding: 0pt;
+	margin: 0pt;
+	font-size:14pt;
+	cursor:pointer;
+}
+#source i{
+	color:lightgray;
+}
+#source div.highlight,
+#source div.highlight div,
+#source div.mark,
+#source div.mark div{
+	background-color:rgba(150,220,255,0.5);
+}
+
+#info{
+	display:block;
+	position:fixed;
+	top:30px;
+	right:30px;
+	border:solid 1px black;
+	background-color:#ffffaa;
+	font-size:14pt;
+	font-family:monospace;
+	padding:20pt;
+	visibility:hidden;
+}
+#info a{
+	cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<span id="tree">
+<div title="program" data-pos=0>
+  <div title="_" data-pos=0>
+    <span data-match=0></span>
+  </div>
+  <div title="block" data-pos=0>
+    <div title="const" data-pos=0>
+      <div title="__" data-pos=5>
+        <div title="_" data-pos=5>
+          <span data-match=3></span>
+        </div>
+        <span data-match=3></span>
+      </div>
+      <div title="ident" data-pos=8>
+        <div title="_" data-pos=9>
+          <span data-match=1></span>
+        </div>
+        <span data-match=2></span>
+      </div>
+      <div title="_" data-pos=11>
+        <span data-match=2></span>
+      </div>
+      <div title="number" data-pos=13>
+        <div title="_" data-pos=14>
+          <span data-match=0></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="_" data-pos=15>
+        <span data-match=3></span>
+      </div>
+      <div title="ident" data-pos=18>
+        <div title="_" data-pos=19>
+          <span data-match=1></span>
+        </div>
+        <span data-match=2></span>
+      </div>
+      <div title="_" data-pos=21>
+        <span data-match=1></span>
+      </div>
+      <div title="number" data-pos=22>
+        <div title="_" data-pos=24>
+          <span data-match=0></span>
+        </div>
+        <span data-match=2></span>
+      </div>
+      <div title="_" data-pos=25>
+        <span data-match=2></span>
+      </div>
+      <span data-match=27></span>
+    </div>
+    <div title="var" data-pos=27>
+      <div title="__" data-pos=30>
+        <div title="_" data-pos=30>
+          <span data-match=3></span>
+        </div>
+        <span data-match=3></span>
+      </div>
+      <div title="ident" data-pos=33>
+        <div title="_" data-pos=34>
+          <span data-match=0></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="_" data-pos=35>
+        <span data-match=1></span>
+      </div>
+      <div title="ident" data-pos=36>
+        <div title="_" data-pos=37>
+          <span data-match=0></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="_" data-pos=38>
+        <span data-match=1></span>
+      </div>
+      <div title="ident" data-pos=39>
+        <div title="_" data-pos=40>
+          <span data-match=0></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="_" data-pos=41>
+        <span data-match=1></span>
+      </div>
+      <div title="ident" data-pos=42>
+        <div title="_" data-pos=43>
+          <span data-match=0></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="_" data-pos=44>
+        <span data-match=1></span>
+      </div>
+      <div title="ident" data-pos=45>
+        <div title="_" data-pos=46>
+          <span data-match=0></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="_" data-pos=47>
+        <span data-match=2></span>
+      </div>
+      <span data-match=22></span>
+    </div>
+    <div title="procedure" data-pos=49>
+      <div title="__" data-pos=58>
+        <div title="_" data-pos=58>
+          <span data-match=1></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="ident" data-pos=59>
+        <div title="_" data-pos=67>
+          <span data-match=0></span>
+        </div>
+        <span data-match=8></span>
+      </div>
+      <div title="_" data-pos=68>
+        <span data-match=1></span>
+      </div>
+      <div title="block" data-pos=69>
+        <div title="const" data-pos=69>
+          <span data-match=0></span>
+        </div>
+        <div title="var" data-pos=69>
+          <div title="__" data-pos=72>
+            <div title="_" data-pos=72>
+              <span data-match=1></span>
+            </div>
+            <span data-match=1></span>
+          </div>
+          <div title="ident" data-pos=73>
+            <div title="_" data-pos=74>
+              <span data-match=0></span>
+            </div>
+            <span data-match=1></span>
+          </div>
+          <div title="_" data-pos=75>
+            <span data-match=1></span>
+          </div>
+          <div title="ident" data-pos=76>
+            <div title="_" data-pos=77>
+              <span data-match=0></span>
+            </div>
+            <span data-match=1></span>
+          </div>
+          <div title="_" data-pos=78>
+            <span data-match=1></span>
+          </div>
+          <span data-match=10></span>
+        </div>
+        <div title="procedure" data-pos=79>
+          <span data-match=0></span>
+        </div>
+        <div title="statement" data-pos=79>
+          <div title="assignment" data-pos=79>
+            <div title="ident" data-pos=79>
+              <span data-match=-1></span>
+            </div>
+            <span data-match=-1></span>
+          </div>
+          <div title="call" data-pos=79>
+            <span data-match=-1></span>
+          </div>
+          <div title="statements" data-pos=79>
+            <div title="__" data-pos=84>
+              <div title="_" data-pos=84>
+                <span data-match=3></span>
+              </div>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=87>
+              <div title="assignment" data-pos=87>
+                <div title="ident" data-pos=87>
+                  <div title="_" data-pos=88>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=91>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=92>
+                  <div title="sign" data-pos=92>
+                    <div title="_" data-pos=92>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=92>
+                    <div title="factor" data-pos=92>
+                      <div title="ident" data-pos=92>
+                        <div title="_" data-pos=93>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="factor_op" data-pos=93>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <div title="term_op" data-pos=93>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <span data-match=6></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <div title="_" data-pos=94>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=97>
+              <div title="assignment" data-pos=97>
+                <div title="ident" data-pos=97>
+                  <div title="_" data-pos=98>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=101>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=102>
+                  <div title="sign" data-pos=102>
+                    <div title="_" data-pos=102>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=102>
+                    <div title="factor" data-pos=102>
+                      <div title="ident" data-pos=102>
+                        <div title="_" data-pos=103>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="factor_op" data-pos=103>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <div title="term_op" data-pos=103>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <span data-match=6></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <div title="_" data-pos=104>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=107>
+              <div title="assignment" data-pos=107>
+                <div title="ident" data-pos=107>
+                  <div title="_" data-pos=108>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=111>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=112>
+                  <div title="sign" data-pos=112>
+                    <div title="_" data-pos=112>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=112>
+                    <div title="factor" data-pos=112>
+                      <div title="ident" data-pos=112>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="number" data-pos=112>
+                        <div title="_" data-pos=113>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="factor_op" data-pos=113>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <div title="term_op" data-pos=113>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <span data-match=6></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <div title="_" data-pos=114>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=117>
+              <div title="assignment" data-pos=117>
+                <div title="ident" data-pos=117>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=-1></span>
+              </div>
+              <div title="call" data-pos=117>
+                <span data-match=-1></span>
+              </div>
+              <div title="statements" data-pos=117>
+                <span data-match=-1></span>
+              </div>
+              <div title="if" data-pos=117>
+                <span data-match=-1></span>
+              </div>
+              <div title="while" data-pos=117>
+                <div title="__" data-pos=122>
+                  <div title="_" data-pos=122>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="condition" data-pos=123>
+                  <div title="odd" data-pos=123>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="compare" data-pos=123>
+                    <div title="expression" data-pos=123>
+                      <div title="sign" data-pos=123>
+                        <div title="_" data-pos=123>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=123>
+                        <div title="factor" data-pos=123>
+                          <div title="ident" data-pos=123>
+                            <div title="_" data-pos=124>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=125>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <div title="term_op" data-pos=125>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="compare_op" data-pos=125>
+                      <div title="_" data-pos=126>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="expression" data-pos=127>
+                      <div title="sign" data-pos=127>
+                        <div title="_" data-pos=127>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=127>
+                        <div title="factor" data-pos=127>
+                          <div title="ident" data-pos=127>
+                            <span data-match=-1></span>
+                          </div>
+                          <div title="number" data-pos=127>
+                            <div title="_" data-pos=128>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=129>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <div title="term_op" data-pos=129>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <span data-match=6></span>
+                  </div>
+                  <span data-match=6></span>
+                </div>
+                <div title="__" data-pos=131>
+                  <div title="_" data-pos=131>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="statement" data-pos=132>
+                  <div title="assignment" data-pos=132>
+                    <div title="ident" data-pos=132>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="call" data-pos=132>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="statements" data-pos=132>
+                    <div title="__" data-pos=137>
+                      <div title="_" data-pos=137>
+                        <span data-match=5></span>
+                      </div>
+                      <span data-match=5></span>
+                    </div>
+                    <div title="statement" data-pos=142>
+                      <div title="assignment" data-pos=142>
+                        <div title="ident" data-pos=142>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="call" data-pos=142>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="statements" data-pos=142>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="if" data-pos=142>
+                        <div title="__" data-pos=144>
+                          <div title="_" data-pos=144>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="condition" data-pos=145>
+                          <div title="odd" data-pos=145>
+                            <div title="__" data-pos=148>
+                              <div title="_" data-pos=148>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=1></span>
+                            </div>
+                            <div title="expression" data-pos=149>
+                              <div title="sign" data-pos=149>
+                                <div title="_" data-pos=149>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=149>
+                                <div title="factor" data-pos=149>
+                                  <div title="ident" data-pos=149>
+                                    <div title="_" data-pos=150>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=151>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=151>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <span data-match=6></span>
+                          </div>
+                          <span data-match=6></span>
+                        </div>
+                        <div title="__" data-pos=155>
+                          <div title="_" data-pos=155>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="statement" data-pos=156>
+                          <div title="assignment" data-pos=156>
+                            <div title="ident" data-pos=156>
+                              <div title="_" data-pos=157>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="_" data-pos=160>
+                              <span data-match=1></span>
+                            </div>
+                            <div title="expression" data-pos=161>
+                              <div title="sign" data-pos=161>
+                                <div title="_" data-pos=161>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=161>
+                                <div title="factor" data-pos=161>
+                                  <div title="ident" data-pos=161>
+                                    <div title="_" data-pos=162>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=163>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=163>
+                                <div title="_" data-pos=164>
+                                  <span data-match=1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term" data-pos=165>
+                                <div title="factor" data-pos=165>
+                                  <div title="ident" data-pos=165>
+                                    <div title="_" data-pos=166>
+                                      <span data-match=0></span>
+                                    </div>
+                                    <span data-match=1></span>
+                                  </div>
+                                  <span data-match=1></span>
+                                </div>
+                                <div title="factor_op" data-pos=166>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=1></span>
+                              </div>
+                              <div title="term_op" data-pos=166>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=5></span>
+                            </div>
+                            <span data-match=10></span>
+                          </div>
+                          <span data-match=10></span>
+                        </div>
+                        <span data-match=24></span>
+                      </div>
+                      <span data-match=24></span>
+                    </div>
+                    <div title="_" data-pos=167>
+                      <span data-match=5></span>
+                    </div>
+                    <div title="statement" data-pos=172>
+                      <div title="assignment" data-pos=172>
+                        <div title="ident" data-pos=172>
+                          <div title="_" data-pos=173>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="_" data-pos=176>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="expression" data-pos=177>
+                          <div title="sign" data-pos=177>
+                            <div title="_" data-pos=177>
+                              <span data-match=0></span>
+                            </div>
+                            <span data-match=0></span>
+                          </div>
+                          <div title="term" data-pos=177>
+                            <div title="factor" data-pos=177>
+                              <div title="ident" data-pos=177>
+                                <span data-match=-1></span>
+                              </div>
+                              <div title="number" data-pos=177>
+                                <div title="_" data-pos=178>
+                                  <span data-match=1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="factor_op" data-pos=179>
+                              <div title="_" data-pos=180>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="factor" data-pos=181>
+                              <div title="ident" data-pos=181>
+                                <div title="_" data-pos=182>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=1></span>
+                            </div>
+                            <div title="factor_op" data-pos=182>
+                              <span data-match=-1></span>
+                            </div>
+                            <span data-match=5></span>
+                          </div>
+                          <div title="term_op" data-pos=182>
+                            <span data-match=-1></span>
+                          </div>
+                          <span data-match=5></span>
+                        </div>
+                        <span data-match=10></span>
+                      </div>
+                      <span data-match=10></span>
+                    </div>
+                    <div title="_" data-pos=183>
+                      <span data-match=5></span>
+                    </div>
+                    <div title="statement" data-pos=188>
+                      <div title="assignment" data-pos=188>
+                        <div title="ident" data-pos=188>
+                          <div title="_" data-pos=189>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="_" data-pos=192>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="expression" data-pos=193>
+                          <div title="sign" data-pos=193>
+                            <div title="_" data-pos=193>
+                              <span data-match=0></span>
+                            </div>
+                            <span data-match=0></span>
+                          </div>
+                          <div title="term" data-pos=193>
+                            <div title="factor" data-pos=193>
+                              <div title="ident" data-pos=193>
+                                <div title="_" data-pos=194>
+                                  <span data-match=1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="factor_op" data-pos=195>
+                              <div title="_" data-pos=196>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="factor" data-pos=197>
+                              <div title="ident" data-pos=197>
+                                <span data-match=-1></span>
+                              </div>
+                              <div title="number" data-pos=197>
+                                <div title="_" data-pos=198>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=1></span>
+                            </div>
+                            <div title="factor_op" data-pos=198>
+                              <span data-match=-1></span>
+                            </div>
+                            <span data-match=5></span>
+                          </div>
+                          <div title="term_op" data-pos=198>
+                            <span data-match=-1></span>
+                          </div>
+                          <span data-match=5></span>
+                        </div>
+                        <span data-match=10></span>
+                      </div>
+                      <span data-match=10></span>
+                    </div>
+                    <div title="_" data-pos=199>
+                      <span data-match=3></span>
+                    </div>
+                    <div title="statement" data-pos=202>
+                      <div title="assignment" data-pos=202>
+                        <div title="ident" data-pos=202>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="call" data-pos=202>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="statements" data-pos=202>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="if" data-pos=202>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="while" data-pos=202>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="out" data-pos=202>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="in" data-pos=202>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=0></span>
+                    </div>
+                    <div title="__" data-pos=205>
+                      <div title="_" data-pos=205>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <span data-match=74></span>
+                  </div>
+                  <span data-match=74></span>
+                </div>
+                <span data-match=89></span>
+              </div>
+              <span data-match=89></span>
+            </div>
+            <div title="__" data-pos=209>
+              <div title="_" data-pos=209>
+                <span data-match=0></span>
+              </div>
+              <span data-match=0></span>
+            </div>
+            <span data-match=130></span>
+          </div>
+          <span data-match=130></span>
+        </div>
+        <span data-match=140></span>
+      </div>
+      <div title="_" data-pos=210>
+        <span data-match=2></span>
+      </div>
+      <div title="__" data-pos=221>
+        <div title="_" data-pos=221>
+          <span data-match=1></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="ident" data-pos=222>
+        <div title="_" data-pos=228>
+          <span data-match=0></span>
+        </div>
+        <span data-match=6></span>
+      </div>
+      <div title="_" data-pos=229>
+        <span data-match=1></span>
+      </div>
+      <div title="block" data-pos=230>
+        <div title="const" data-pos=230>
+          <span data-match=0></span>
+        </div>
+        <div title="var" data-pos=230>
+          <div title="__" data-pos=233>
+            <div title="_" data-pos=233>
+              <span data-match=1></span>
+            </div>
+            <span data-match=1></span>
+          </div>
+          <div title="ident" data-pos=234>
+            <div title="_" data-pos=235>
+              <span data-match=0></span>
+            </div>
+            <span data-match=1></span>
+          </div>
+          <div title="_" data-pos=236>
+            <span data-match=1></span>
+          </div>
+          <span data-match=7></span>
+        </div>
+        <div title="procedure" data-pos=237>
+          <span data-match=0></span>
+        </div>
+        <div title="statement" data-pos=237>
+          <div title="assignment" data-pos=237>
+            <div title="ident" data-pos=237>
+              <span data-match=-1></span>
+            </div>
+            <span data-match=-1></span>
+          </div>
+          <div title="call" data-pos=237>
+            <span data-match=-1></span>
+          </div>
+          <div title="statements" data-pos=237>
+            <div title="__" data-pos=242>
+              <div title="_" data-pos=242>
+                <span data-match=3></span>
+              </div>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=245>
+              <div title="assignment" data-pos=245>
+                <div title="ident" data-pos=245>
+                  <div title="_" data-pos=246>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=249>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=250>
+                  <div title="sign" data-pos=250>
+                    <div title="_" data-pos=250>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=250>
+                    <div title="factor" data-pos=250>
+                      <div title="ident" data-pos=250>
+                        <div title="_" data-pos=251>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="factor_op" data-pos=251>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <div title="term_op" data-pos=251>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <span data-match=6></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <div title="_" data-pos=252>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=255>
+              <div title="assignment" data-pos=255>
+                <div title="ident" data-pos=255>
+                  <div title="_" data-pos=256>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=259>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=260>
+                  <div title="sign" data-pos=260>
+                    <div title="_" data-pos=260>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=260>
+                    <div title="factor" data-pos=260>
+                      <div title="ident" data-pos=260>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="number" data-pos=260>
+                        <div title="_" data-pos=261>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="factor_op" data-pos=261>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <div title="term_op" data-pos=261>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <span data-match=6></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <div title="_" data-pos=262>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=265>
+              <div title="assignment" data-pos=265>
+                <div title="ident" data-pos=265>
+                  <div title="_" data-pos=266>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=269>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=270>
+                  <div title="sign" data-pos=270>
+                    <div title="_" data-pos=270>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=270>
+                    <div title="factor" data-pos=270>
+                      <div title="ident" data-pos=270>
+                        <div title="_" data-pos=271>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="factor_op" data-pos=271>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <div title="term_op" data-pos=271>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <span data-match=6></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <div title="_" data-pos=272>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=275>
+              <div title="assignment" data-pos=275>
+                <div title="ident" data-pos=275>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=-1></span>
+              </div>
+              <div title="call" data-pos=275>
+                <span data-match=-1></span>
+              </div>
+              <div title="statements" data-pos=275>
+                <span data-match=-1></span>
+              </div>
+              <div title="if" data-pos=275>
+                <span data-match=-1></span>
+              </div>
+              <div title="while" data-pos=275>
+                <div title="__" data-pos=280>
+                  <div title="_" data-pos=280>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="condition" data-pos=281>
+                  <div title="odd" data-pos=281>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="compare" data-pos=281>
+                    <div title="expression" data-pos=281>
+                      <div title="sign" data-pos=281>
+                        <div title="_" data-pos=281>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=281>
+                        <div title="factor" data-pos=281>
+                          <div title="ident" data-pos=281>
+                            <div title="_" data-pos=282>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=283>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <div title="term_op" data-pos=283>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="compare_op" data-pos=283>
+                      <div title="_" data-pos=285>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=3></span>
+                    </div>
+                    <div title="expression" data-pos=286>
+                      <div title="sign" data-pos=286>
+                        <div title="_" data-pos=286>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=286>
+                        <div title="factor" data-pos=286>
+                          <div title="ident" data-pos=286>
+                            <div title="_" data-pos=287>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=288>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <div title="term_op" data-pos=288>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <span data-match=7></span>
+                  </div>
+                  <span data-match=7></span>
+                </div>
+                <div title="__" data-pos=290>
+                  <div title="_" data-pos=290>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="statement" data-pos=291>
+                  <div title="assignment" data-pos=291>
+                    <div title="ident" data-pos=291>
+                      <div title="_" data-pos=292>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="_" data-pos=295>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="expression" data-pos=296>
+                      <div title="sign" data-pos=296>
+                        <div title="_" data-pos=296>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=296>
+                        <div title="factor" data-pos=296>
+                          <div title="ident" data-pos=296>
+                            <span data-match=-1></span>
+                          </div>
+                          <div title="number" data-pos=296>
+                            <div title="_" data-pos=297>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=298>
+                          <div title="_" data-pos=299>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor" data-pos=300>
+                          <div title="ident" data-pos=300>
+                            <div title="_" data-pos=301>
+                              <span data-match=0></span>
+                            </div>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="factor_op" data-pos=301>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=5></span>
+                      </div>
+                      <div title="term_op" data-pos=301>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=5></span>
+                    </div>
+                    <span data-match=10></span>
+                  </div>
+                  <span data-match=10></span>
+                </div>
+                <span data-match=26></span>
+              </div>
+              <span data-match=26></span>
+            </div>
+            <div title="_" data-pos=302>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=305>
+              <div title="assignment" data-pos=305>
+                <div title="ident" data-pos=305>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=-1></span>
+              </div>
+              <div title="call" data-pos=305>
+                <span data-match=-1></span>
+              </div>
+              <div title="statements" data-pos=305>
+                <span data-match=-1></span>
+              </div>
+              <div title="if" data-pos=305>
+                <span data-match=-1></span>
+              </div>
+              <div title="while" data-pos=305>
+                <div title="__" data-pos=310>
+                  <div title="_" data-pos=310>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="condition" data-pos=311>
+                  <div title="odd" data-pos=311>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="compare" data-pos=311>
+                    <div title="expression" data-pos=311>
+                      <div title="sign" data-pos=311>
+                        <div title="_" data-pos=311>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=311>
+                        <div title="factor" data-pos=311>
+                          <div title="ident" data-pos=311>
+                            <div title="_" data-pos=312>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=313>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <div title="term_op" data-pos=313>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="compare_op" data-pos=313>
+                      <div title="_" data-pos=314>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="expression" data-pos=315>
+                      <div title="sign" data-pos=315>
+                        <div title="_" data-pos=315>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=315>
+                        <div title="factor" data-pos=315>
+                          <div title="ident" data-pos=315>
+                            <div title="_" data-pos=316>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=317>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <div title="term_op" data-pos=317>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <span data-match=6></span>
+                  </div>
+                  <span data-match=6></span>
+                </div>
+                <div title="__" data-pos=319>
+                  <div title="_" data-pos=319>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="statement" data-pos=320>
+                  <div title="assignment" data-pos=320>
+                    <div title="ident" data-pos=320>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="call" data-pos=320>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="statements" data-pos=320>
+                    <div title="__" data-pos=325>
+                      <div title="_" data-pos=325>
+                        <span data-match=5></span>
+                      </div>
+                      <span data-match=5></span>
+                    </div>
+                    <div title="statement" data-pos=330>
+                      <div title="assignment" data-pos=330>
+                        <div title="ident" data-pos=330>
+                          <div title="_" data-pos=331>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="_" data-pos=334>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="expression" data-pos=335>
+                          <div title="sign" data-pos=335>
+                            <div title="_" data-pos=335>
+                              <span data-match=0></span>
+                            </div>
+                            <span data-match=0></span>
+                          </div>
+                          <div title="term" data-pos=335>
+                            <div title="factor" data-pos=335>
+                              <div title="ident" data-pos=335>
+                                <span data-match=-1></span>
+                              </div>
+                              <div title="number" data-pos=335>
+                                <div title="_" data-pos=336>
+                                  <span data-match=1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="factor_op" data-pos=337>
+                              <div title="_" data-pos=338>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="factor" data-pos=339>
+                              <div title="ident" data-pos=339>
+                                <div title="_" data-pos=340>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=1></span>
+                            </div>
+                            <div title="factor_op" data-pos=340>
+                              <span data-match=-1></span>
+                            </div>
+                            <span data-match=5></span>
+                          </div>
+                          <div title="term_op" data-pos=340>
+                            <span data-match=-1></span>
+                          </div>
+                          <span data-match=5></span>
+                        </div>
+                        <span data-match=10></span>
+                      </div>
+                      <span data-match=10></span>
+                    </div>
+                    <div title="_" data-pos=341>
+                      <span data-match=5></span>
+                    </div>
+                    <div title="statement" data-pos=346>
+                      <div title="assignment" data-pos=346>
+                        <div title="ident" data-pos=346>
+                          <div title="_" data-pos=347>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="_" data-pos=350>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="expression" data-pos=351>
+                          <div title="sign" data-pos=351>
+                            <div title="_" data-pos=351>
+                              <span data-match=0></span>
+                            </div>
+                            <span data-match=0></span>
+                          </div>
+                          <div title="term" data-pos=351>
+                            <div title="factor" data-pos=351>
+                              <div title="ident" data-pos=351>
+                                <div title="_" data-pos=352>
+                                  <span data-match=1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="factor_op" data-pos=353>
+                              <div title="_" data-pos=354>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="factor" data-pos=355>
+                              <div title="ident" data-pos=355>
+                                <span data-match=-1></span>
+                              </div>
+                              <div title="number" data-pos=355>
+                                <div title="_" data-pos=356>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=1></span>
+                            </div>
+                            <div title="factor_op" data-pos=356>
+                              <span data-match=-1></span>
+                            </div>
+                            <span data-match=5></span>
+                          </div>
+                          <div title="term_op" data-pos=356>
+                            <span data-match=-1></span>
+                          </div>
+                          <span data-match=5></span>
+                        </div>
+                        <span data-match=10></span>
+                      </div>
+                      <span data-match=10></span>
+                    </div>
+                    <div title="_" data-pos=357>
+                      <span data-match=5></span>
+                    </div>
+                    <div title="statement" data-pos=362>
+                      <div title="assignment" data-pos=362>
+                        <div title="ident" data-pos=362>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="call" data-pos=362>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="statements" data-pos=362>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="if" data-pos=362>
+                        <div title="__" data-pos=364>
+                          <div title="_" data-pos=364>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="condition" data-pos=365>
+                          <div title="odd" data-pos=365>
+                            <span data-match=-1></span>
+                          </div>
+                          <div title="compare" data-pos=365>
+                            <div title="expression" data-pos=365>
+                              <div title="sign" data-pos=365>
+                                <div title="_" data-pos=365>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=365>
+                                <div title="factor" data-pos=365>
+                                  <div title="ident" data-pos=365>
+                                    <div title="_" data-pos=366>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=367>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=367>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="compare_op" data-pos=367>
+                              <div title="_" data-pos=369>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=3></span>
+                            </div>
+                            <div title="expression" data-pos=370>
+                              <div title="sign" data-pos=370>
+                                <div title="_" data-pos=370>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=370>
+                                <div title="factor" data-pos=370>
+                                  <div title="ident" data-pos=370>
+                                    <div title="_" data-pos=371>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=372>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=372>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <span data-match=7></span>
+                          </div>
+                          <span data-match=7></span>
+                        </div>
+                        <div title="__" data-pos=376>
+                          <div title="_" data-pos=376>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="statement" data-pos=377>
+                          <div title="assignment" data-pos=377>
+                            <div title="ident" data-pos=377>
+                              <span data-match=-1></span>
+                            </div>
+                            <span data-match=-1></span>
+                          </div>
+                          <div title="call" data-pos=377>
+                            <span data-match=-1></span>
+                          </div>
+                          <div title="statements" data-pos=377>
+                            <div title="__" data-pos=382>
+                              <div title="_" data-pos=382>
+                                <span data-match=7></span>
+                              </div>
+                              <span data-match=7></span>
+                            </div>
+                            <div title="statement" data-pos=389>
+                              <div title="assignment" data-pos=389>
+                                <div title="ident" data-pos=389>
+                                  <div title="_" data-pos=390>
+                                    <span data-match=1></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="_" data-pos=393>
+                                  <span data-match=1></span>
+                                </div>
+                                <div title="expression" data-pos=394>
+                                  <div title="sign" data-pos=394>
+                                    <div title="_" data-pos=394>
+                                      <span data-match=0></span>
+                                    </div>
+                                    <span data-match=0></span>
+                                  </div>
+                                  <div title="term" data-pos=394>
+                                    <div title="factor" data-pos=394>
+                                      <div title="ident" data-pos=394>
+                                        <div title="_" data-pos=395>
+                                          <span data-match=1></span>
+                                        </div>
+                                        <span data-match=2></span>
+                                      </div>
+                                      <span data-match=2></span>
+                                    </div>
+                                    <div title="factor_op" data-pos=396>
+                                      <span data-match=-1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <div title="term_op" data-pos=396>
+                                    <div title="_" data-pos=397>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <div title="term" data-pos=398>
+                                    <div title="factor" data-pos=398>
+                                      <div title="ident" data-pos=398>
+                                        <div title="_" data-pos=399>
+                                          <span data-match=0></span>
+                                        </div>
+                                        <span data-match=1></span>
+                                      </div>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <div title="factor_op" data-pos=399>
+                                      <span data-match=-1></span>
+                                    </div>
+                                    <span data-match=1></span>
+                                  </div>
+                                  <div title="term_op" data-pos=399>
+                                    <span data-match=-1></span>
+                                  </div>
+                                  <span data-match=5></span>
+                                </div>
+                                <span data-match=10></span>
+                              </div>
+                              <span data-match=10></span>
+                            </div>
+                            <div title="_" data-pos=400>
+                              <span data-match=7></span>
+                            </div>
+                            <div title="statement" data-pos=407>
+                              <div title="assignment" data-pos=407>
+                                <div title="ident" data-pos=407>
+                                  <div title="_" data-pos=408>
+                                    <span data-match=1></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="_" data-pos=411>
+                                  <span data-match=1></span>
+                                </div>
+                                <div title="expression" data-pos=412>
+                                  <div title="sign" data-pos=412>
+                                    <div title="_" data-pos=412>
+                                      <span data-match=0></span>
+                                    </div>
+                                    <span data-match=0></span>
+                                  </div>
+                                  <div title="term" data-pos=412>
+                                    <div title="factor" data-pos=412>
+                                      <div title="ident" data-pos=412>
+                                        <div title="_" data-pos=413>
+                                          <span data-match=1></span>
+                                        </div>
+                                        <span data-match=2></span>
+                                      </div>
+                                      <span data-match=2></span>
+                                    </div>
+                                    <div title="factor_op" data-pos=414>
+                                      <span data-match=-1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <div title="term_op" data-pos=414>
+                                    <div title="_" data-pos=415>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <div title="term" data-pos=416>
+                                    <div title="factor" data-pos=416>
+                                      <div title="ident" data-pos=416>
+                                        <span data-match=-1></span>
+                                      </div>
+                                      <div title="number" data-pos=416>
+                                        <div title="_" data-pos=417>
+                                          <span data-match=5></span>
+                                        </div>
+                                        <span data-match=6></span>
+                                      </div>
+                                      <span data-match=6></span>
+                                    </div>
+                                    <div title="factor_op" data-pos=422>
+                                      <span data-match=-1></span>
+                                    </div>
+                                    <span data-match=6></span>
+                                  </div>
+                                  <div title="term_op" data-pos=422>
+                                    <span data-match=-1></span>
+                                  </div>
+                                  <span data-match=10></span>
+                                </div>
+                                <span data-match=15></span>
+                              </div>
+                              <span data-match=15></span>
+                            </div>
+                            <div title="__" data-pos=425>
+                              <div title="_" data-pos=425>
+                                <span data-match=3></span>
+                              </div>
+                              <span data-match=3></span>
+                            </div>
+                            <span data-match=51></span>
+                          </div>
+                          <span data-match=51></span>
+                        </div>
+                        <span data-match=66></span>
+                      </div>
+                      <span data-match=66></span>
+                    </div>
+                    <div title="__" data-pos=431>
+                      <div title="_" data-pos=431>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <span data-match=112></span>
+                  </div>
+                  <span data-match=112></span>
+                </div>
+                <span data-match=127></span>
+              </div>
+              <span data-match=127></span>
+            </div>
+            <div title="__" data-pos=435>
+              <div title="_" data-pos=435>
+                <span data-match=0></span>
+              </div>
+              <span data-match=0></span>
+            </div>
+            <span data-match=198></span>
+          </div>
+          <span data-match=198></span>
+        </div>
+        <span data-match=205></span>
+      </div>
+      <div title="_" data-pos=436>
+        <span data-match=2></span>
+      </div>
+      <div title="__" data-pos=447>
+        <div title="_" data-pos=447>
+          <span data-match=1></span>
+        </div>
+        <span data-match=1></span>
+      </div>
+      <div title="ident" data-pos=448>
+        <div title="_" data-pos=451>
+          <span data-match=0></span>
+        </div>
+        <span data-match=3></span>
+      </div>
+      <div title="_" data-pos=452>
+        <span data-match=1></span>
+      </div>
+      <div title="block" data-pos=453>
+        <div title="const" data-pos=453>
+          <span data-match=0></span>
+        </div>
+        <div title="var" data-pos=453>
+          <div title="__" data-pos=456>
+            <div title="_" data-pos=456>
+              <span data-match=1></span>
+            </div>
+            <span data-match=1></span>
+          </div>
+          <div title="ident" data-pos=457>
+            <div title="_" data-pos=458>
+              <span data-match=0></span>
+            </div>
+            <span data-match=1></span>
+          </div>
+          <div title="_" data-pos=459>
+            <span data-match=1></span>
+          </div>
+          <div title="ident" data-pos=460>
+            <div title="_" data-pos=461>
+              <span data-match=0></span>
+            </div>
+            <span data-match=1></span>
+          </div>
+          <div title="_" data-pos=462>
+            <span data-match=1></span>
+          </div>
+          <span data-match=10></span>
+        </div>
+        <div title="procedure" data-pos=463>
+          <span data-match=0></span>
+        </div>
+        <div title="statement" data-pos=463>
+          <div title="assignment" data-pos=463>
+            <div title="ident" data-pos=463>
+              <span data-match=-1></span>
+            </div>
+            <span data-match=-1></span>
+          </div>
+          <div title="call" data-pos=463>
+            <span data-match=-1></span>
+          </div>
+          <div title="statements" data-pos=463>
+            <div title="__" data-pos=468>
+              <div title="_" data-pos=468>
+                <span data-match=3></span>
+              </div>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=471>
+              <div title="assignment" data-pos=471>
+                <div title="ident" data-pos=471>
+                  <div title="_" data-pos=472>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=475>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=476>
+                  <div title="sign" data-pos=476>
+                    <div title="_" data-pos=476>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=476>
+                    <div title="factor" data-pos=476>
+                      <div title="ident" data-pos=476>
+                        <div title="_" data-pos=477>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="factor_op" data-pos=477>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <div title="term_op" data-pos=477>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <span data-match=6></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <div title="_" data-pos=478>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=481>
+              <div title="assignment" data-pos=481>
+                <div title="ident" data-pos=481>
+                  <div title="_" data-pos=482>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=485>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=486>
+                  <div title="sign" data-pos=486>
+                    <div title="_" data-pos=486>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=486>
+                    <div title="factor" data-pos=486>
+                      <div title="ident" data-pos=486>
+                        <div title="_" data-pos=487>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=1></span>
+                    </div>
+                    <div title="factor_op" data-pos=487>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <div title="term_op" data-pos=487>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <span data-match=6></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <div title="_" data-pos=488>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=491>
+              <div title="assignment" data-pos=491>
+                <div title="ident" data-pos=491>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=-1></span>
+              </div>
+              <div title="call" data-pos=491>
+                <span data-match=-1></span>
+              </div>
+              <div title="statements" data-pos=491>
+                <span data-match=-1></span>
+              </div>
+              <div title="if" data-pos=491>
+                <span data-match=-1></span>
+              </div>
+              <div title="while" data-pos=491>
+                <div title="__" data-pos=496>
+                  <div title="_" data-pos=496>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="condition" data-pos=497>
+                  <div title="odd" data-pos=497>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="compare" data-pos=497>
+                    <div title="expression" data-pos=497>
+                      <div title="sign" data-pos=497>
+                        <div title="_" data-pos=497>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=497>
+                        <div title="factor" data-pos=497>
+                          <div title="ident" data-pos=497>
+                            <div title="_" data-pos=498>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=499>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <div title="term_op" data-pos=499>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="compare_op" data-pos=499>
+                      <div title="_" data-pos=500>
+                        <span data-match=1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="expression" data-pos=501>
+                      <div title="sign" data-pos=501>
+                        <div title="_" data-pos=501>
+                          <span data-match=0></span>
+                        </div>
+                        <span data-match=0></span>
+                      </div>
+                      <div title="term" data-pos=501>
+                        <div title="factor" data-pos=501>
+                          <div title="ident" data-pos=501>
+                            <div title="_" data-pos=502>
+                              <span data-match=1></span>
+                            </div>
+                            <span data-match=2></span>
+                          </div>
+                          <span data-match=2></span>
+                        </div>
+                        <div title="factor_op" data-pos=503>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <div title="term_op" data-pos=503>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <span data-match=6></span>
+                  </div>
+                  <span data-match=6></span>
+                </div>
+                <div title="__" data-pos=505>
+                  <div title="_" data-pos=505>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="statement" data-pos=506>
+                  <div title="assignment" data-pos=506>
+                    <div title="ident" data-pos=506>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="call" data-pos=506>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="statements" data-pos=506>
+                    <div title="__" data-pos=511>
+                      <div title="_" data-pos=511>
+                        <span data-match=5></span>
+                      </div>
+                      <span data-match=5></span>
+                    </div>
+                    <div title="statement" data-pos=516>
+                      <div title="assignment" data-pos=516>
+                        <div title="ident" data-pos=516>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="call" data-pos=516>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="statements" data-pos=516>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="if" data-pos=516>
+                        <div title="__" data-pos=518>
+                          <div title="_" data-pos=518>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="condition" data-pos=519>
+                          <div title="odd" data-pos=519>
+                            <span data-match=-1></span>
+                          </div>
+                          <div title="compare" data-pos=519>
+                            <div title="expression" data-pos=519>
+                              <div title="sign" data-pos=519>
+                                <div title="_" data-pos=519>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=519>
+                                <div title="factor" data-pos=519>
+                                  <div title="ident" data-pos=519>
+                                    <div title="_" data-pos=520>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=521>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=521>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="compare_op" data-pos=521>
+                              <div title="_" data-pos=522>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="expression" data-pos=523>
+                              <div title="sign" data-pos=523>
+                                <div title="_" data-pos=523>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=523>
+                                <div title="factor" data-pos=523>
+                                  <div title="ident" data-pos=523>
+                                    <div title="_" data-pos=524>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=525>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=525>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <span data-match=6></span>
+                          </div>
+                          <span data-match=6></span>
+                        </div>
+                        <div title="__" data-pos=529>
+                          <div title="_" data-pos=529>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="statement" data-pos=530>
+                          <div title="assignment" data-pos=530>
+                            <div title="ident" data-pos=530>
+                              <div title="_" data-pos=531>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="_" data-pos=534>
+                              <span data-match=1></span>
+                            </div>
+                            <div title="expression" data-pos=535>
+                              <div title="sign" data-pos=535>
+                                <div title="_" data-pos=535>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=535>
+                                <div title="factor" data-pos=535>
+                                  <div title="ident" data-pos=535>
+                                    <div title="_" data-pos=536>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=537>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=537>
+                                <div title="_" data-pos=538>
+                                  <span data-match=1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term" data-pos=539>
+                                <div title="factor" data-pos=539>
+                                  <div title="ident" data-pos=539>
+                                    <div title="_" data-pos=540>
+                                      <span data-match=0></span>
+                                    </div>
+                                    <span data-match=1></span>
+                                  </div>
+                                  <span data-match=1></span>
+                                </div>
+                                <div title="factor_op" data-pos=540>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=1></span>
+                              </div>
+                              <div title="term_op" data-pos=540>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=5></span>
+                            </div>
+                            <span data-match=10></span>
+                          </div>
+                          <span data-match=10></span>
+                        </div>
+                        <span data-match=24></span>
+                      </div>
+                      <span data-match=24></span>
+                    </div>
+                    <div title="_" data-pos=541>
+                      <span data-match=5></span>
+                    </div>
+                    <div title="statement" data-pos=546>
+                      <div title="assignment" data-pos=546>
+                        <div title="ident" data-pos=546>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="call" data-pos=546>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="statements" data-pos=546>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="if" data-pos=546>
+                        <div title="__" data-pos=548>
+                          <div title="_" data-pos=548>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="condition" data-pos=549>
+                          <div title="odd" data-pos=549>
+                            <span data-match=-1></span>
+                          </div>
+                          <div title="compare" data-pos=549>
+                            <div title="expression" data-pos=549>
+                              <div title="sign" data-pos=549>
+                                <div title="_" data-pos=549>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=549>
+                                <div title="factor" data-pos=549>
+                                  <div title="ident" data-pos=549>
+                                    <div title="_" data-pos=550>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=551>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=551>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="compare_op" data-pos=551>
+                              <div title="_" data-pos=552>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="expression" data-pos=553>
+                              <div title="sign" data-pos=553>
+                                <div title="_" data-pos=553>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=553>
+                                <div title="factor" data-pos=553>
+                                  <div title="ident" data-pos=553>
+                                    <div title="_" data-pos=554>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=555>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=555>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <span data-match=6></span>
+                          </div>
+                          <span data-match=6></span>
+                        </div>
+                        <div title="__" data-pos=559>
+                          <div title="_" data-pos=559>
+                            <span data-match=1></span>
+                          </div>
+                          <span data-match=1></span>
+                        </div>
+                        <div title="statement" data-pos=560>
+                          <div title="assignment" data-pos=560>
+                            <div title="ident" data-pos=560>
+                              <div title="_" data-pos=561>
+                                <span data-match=1></span>
+                              </div>
+                              <span data-match=2></span>
+                            </div>
+                            <div title="_" data-pos=564>
+                              <span data-match=1></span>
+                            </div>
+                            <div title="expression" data-pos=565>
+                              <div title="sign" data-pos=565>
+                                <div title="_" data-pos=565>
+                                  <span data-match=0></span>
+                                </div>
+                                <span data-match=0></span>
+                              </div>
+                              <div title="term" data-pos=565>
+                                <div title="factor" data-pos=565>
+                                  <div title="ident" data-pos=565>
+                                    <div title="_" data-pos=566>
+                                      <span data-match=1></span>
+                                    </div>
+                                    <span data-match=2></span>
+                                  </div>
+                                  <span data-match=2></span>
+                                </div>
+                                <div title="factor_op" data-pos=567>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term_op" data-pos=567>
+                                <div title="_" data-pos=568>
+                                  <span data-match=1></span>
+                                </div>
+                                <span data-match=2></span>
+                              </div>
+                              <div title="term" data-pos=569>
+                                <div title="factor" data-pos=569>
+                                  <div title="ident" data-pos=569>
+                                    <div title="_" data-pos=570>
+                                      <span data-match=0></span>
+                                    </div>
+                                    <span data-match=1></span>
+                                  </div>
+                                  <span data-match=1></span>
+                                </div>
+                                <div title="factor_op" data-pos=570>
+                                  <span data-match=-1></span>
+                                </div>
+                                <span data-match=1></span>
+                              </div>
+                              <div title="term_op" data-pos=570>
+                                <span data-match=-1></span>
+                              </div>
+                              <span data-match=5></span>
+                            </div>
+                            <span data-match=10></span>
+                          </div>
+                          <span data-match=10></span>
+                        </div>
+                        <span data-match=24></span>
+                      </div>
+                      <span data-match=24></span>
+                    </div>
+                    <div title="_" data-pos=571>
+                      <span data-match=3></span>
+                    </div>
+                    <div title="statement" data-pos=574>
+                      <div title="assignment" data-pos=574>
+                        <div title="ident" data-pos=574>
+                          <span data-match=-1></span>
+                        </div>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="call" data-pos=574>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="statements" data-pos=574>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="if" data-pos=574>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="while" data-pos=574>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="out" data-pos=574>
+                        <span data-match=-1></span>
+                      </div>
+                      <div title="in" data-pos=574>
+                        <span data-match=-1></span>
+                      </div>
+                      <span data-match=0></span>
+                    </div>
+                    <div title="__" data-pos=577>
+                      <div title="_" data-pos=577>
+                        <span data-match=0></span>
+                      </div>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=71></span>
+                  </div>
+                  <span data-match=71></span>
+                </div>
+                <span data-match=86></span>
+              </div>
+              <span data-match=86></span>
+            </div>
+            <div title="_" data-pos=578>
+              <span data-match=3></span>
+            </div>
+            <div title="statement" data-pos=581>
+              <div title="assignment" data-pos=581>
+                <div title="ident" data-pos=581>
+                  <div title="_" data-pos=582>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="_" data-pos=585>
+                  <span data-match=1></span>
+                </div>
+                <div title="expression" data-pos=586>
+                  <div title="sign" data-pos=586>
+                    <div title="_" data-pos=586>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=0></span>
+                  </div>
+                  <div title="term" data-pos=586>
+                    <div title="factor" data-pos=586>
+                      <div title="ident" data-pos=586>
+                        <div title="_" data-pos=587>
+                          <span data-match=1></span>
+                        </div>
+                        <span data-match=2></span>
+                      </div>
+                      <span data-match=2></span>
+                    </div>
+                    <div title="factor_op" data-pos=588>
+                      <span data-match=-1></span>
+                    </div>
+                    <span data-match=2></span>
+                  </div>
+                  <div title="term_op" data-pos=588>
+                    <span data-match=-1></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <span data-match=7></span>
+              </div>
+              <span data-match=7></span>
+            </div>
+            <div title="__" data-pos=591>
+              <div title="_" data-pos=591>
+                <span data-match=0></span>
+              </div>
+              <span data-match=0></span>
+            </div>
+            <span data-match=128></span>
+          </div>
+          <span data-match=128></span>
+        </div>
+        <span data-match=138></span>
+      </div>
+      <div title="_" data-pos=592>
+        <span data-match=2></span>
+      </div>
+      <span data-match=545></span>
+    </div>
+    <div title="statement" data-pos=594>
+      <div title="assignment" data-pos=594>
+        <div title="ident" data-pos=594>
+          <span data-match=-1></span>
+        </div>
+        <span data-match=-1></span>
+      </div>
+      <div title="call" data-pos=594>
+        <span data-match=-1></span>
+      </div>
+      <div title="statements" data-pos=594>
+        <div title="__" data-pos=599>
+          <div title="_" data-pos=599>
+            <span data-match=3></span>
+          </div>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=602>
+          <div title="assignment" data-pos=602>
+            <div title="ident" data-pos=602>
+              <div title="_" data-pos=603>
+                <span data-match=1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <div title="_" data-pos=606>
+              <span data-match=1></span>
+            </div>
+            <div title="expression" data-pos=607>
+              <div title="sign" data-pos=607>
+                <div title="_" data-pos=607>
+                  <span data-match=0></span>
+                </div>
+                <span data-match=0></span>
+              </div>
+              <div title="term" data-pos=607>
+                <div title="factor" data-pos=607>
+                  <div title="ident" data-pos=607>
+                    <div title="_" data-pos=608>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="factor_op" data-pos=608>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=1></span>
+              </div>
+              <div title="term_op" data-pos=608>
+                <span data-match=-1></span>
+              </div>
+              <span data-match=1></span>
+            </div>
+            <span data-match=6></span>
+          </div>
+          <span data-match=6></span>
+        </div>
+        <div title="_" data-pos=609>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=612>
+          <div title="assignment" data-pos=612>
+            <div title="ident" data-pos=612>
+              <div title="_" data-pos=613>
+                <span data-match=1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <div title="_" data-pos=616>
+              <span data-match=1></span>
+            </div>
+            <div title="expression" data-pos=617>
+              <div title="sign" data-pos=617>
+                <div title="_" data-pos=617>
+                  <span data-match=0></span>
+                </div>
+                <span data-match=0></span>
+              </div>
+              <div title="term" data-pos=617>
+                <div title="factor" data-pos=617>
+                  <div title="ident" data-pos=617>
+                    <div title="_" data-pos=618>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="factor_op" data-pos=618>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=1></span>
+              </div>
+              <div title="term_op" data-pos=618>
+                <span data-match=-1></span>
+              </div>
+              <span data-match=1></span>
+            </div>
+            <span data-match=6></span>
+          </div>
+          <span data-match=6></span>
+        </div>
+        <div title="_" data-pos=619>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=622>
+          <div title="assignment" data-pos=622>
+            <div title="ident" data-pos=622>
+              <span data-match=-1></span>
+            </div>
+            <span data-match=-1></span>
+          </div>
+          <div title="call" data-pos=622>
+            <div title="__" data-pos=626>
+              <div title="_" data-pos=626>
+                <span data-match=1></span>
+              </div>
+              <span data-match=1></span>
+            </div>
+            <div title="ident" data-pos=627>
+              <div title="_" data-pos=635>
+                <span data-match=0></span>
+              </div>
+              <span data-match=8></span>
+            </div>
+            <span data-match=13></span>
+          </div>
+          <span data-match=13></span>
+        </div>
+        <div title="_" data-pos=636>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=639>
+          <div title="assignment" data-pos=639>
+            <div title="ident" data-pos=639>
+              <div title="_" data-pos=640>
+                <span data-match=1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <div title="_" data-pos=643>
+              <span data-match=1></span>
+            </div>
+            <div title="expression" data-pos=644>
+              <div title="sign" data-pos=644>
+                <div title="_" data-pos=644>
+                  <span data-match=0></span>
+                </div>
+                <span data-match=0></span>
+              </div>
+              <div title="term" data-pos=644>
+                <div title="factor" data-pos=644>
+                  <div title="ident" data-pos=644>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="number" data-pos=644>
+                    <div title="_" data-pos=646>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=2></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="factor_op" data-pos=646>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=2></span>
+              </div>
+              <div title="term_op" data-pos=646>
+                <span data-match=-1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <span data-match=7></span>
+          </div>
+          <span data-match=7></span>
+        </div>
+        <div title="_" data-pos=647>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=650>
+          <div title="assignment" data-pos=650>
+            <div title="ident" data-pos=650>
+              <div title="_" data-pos=651>
+                <span data-match=1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <div title="_" data-pos=654>
+              <span data-match=2></span>
+            </div>
+            <div title="expression" data-pos=656>
+              <div title="sign" data-pos=656>
+                <div title="_" data-pos=656>
+                  <span data-match=0></span>
+                </div>
+                <span data-match=0></span>
+              </div>
+              <div title="term" data-pos=656>
+                <div title="factor" data-pos=656>
+                  <div title="ident" data-pos=656>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="number" data-pos=656>
+                    <div title="_" data-pos=657>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="factor_op" data-pos=657>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=1></span>
+              </div>
+              <div title="term_op" data-pos=657>
+                <span data-match=-1></span>
+              </div>
+              <span data-match=1></span>
+            </div>
+            <span data-match=7></span>
+          </div>
+          <span data-match=7></span>
+        </div>
+        <div title="_" data-pos=658>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=661>
+          <div title="assignment" data-pos=661>
+            <div title="ident" data-pos=661>
+              <span data-match=-1></span>
+            </div>
+            <span data-match=-1></span>
+          </div>
+          <div title="call" data-pos=661>
+            <div title="__" data-pos=665>
+              <div title="_" data-pos=665>
+                <span data-match=1></span>
+              </div>
+              <span data-match=1></span>
+            </div>
+            <div title="ident" data-pos=666>
+              <div title="_" data-pos=672>
+                <span data-match=0></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <span data-match=11></span>
+          </div>
+          <span data-match=11></span>
+        </div>
+        <div title="_" data-pos=673>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=676>
+          <div title="assignment" data-pos=676>
+            <div title="ident" data-pos=676>
+              <div title="_" data-pos=677>
+                <span data-match=1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <div title="_" data-pos=680>
+              <span data-match=1></span>
+            </div>
+            <div title="expression" data-pos=681>
+              <div title="sign" data-pos=681>
+                <div title="_" data-pos=681>
+                  <span data-match=0></span>
+                </div>
+                <span data-match=0></span>
+              </div>
+              <div title="term" data-pos=681>
+                <div title="factor" data-pos=681>
+                  <div title="ident" data-pos=681>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="number" data-pos=681>
+                    <div title="_" data-pos=683>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=2></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="factor_op" data-pos=683>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=2></span>
+              </div>
+              <div title="term_op" data-pos=683>
+                <span data-match=-1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <span data-match=7></span>
+          </div>
+          <span data-match=7></span>
+        </div>
+        <div title="_" data-pos=684>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=687>
+          <div title="assignment" data-pos=687>
+            <div title="ident" data-pos=687>
+              <div title="_" data-pos=688>
+                <span data-match=1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <div title="_" data-pos=691>
+              <span data-match=1></span>
+            </div>
+            <div title="expression" data-pos=692>
+              <div title="sign" data-pos=692>
+                <div title="_" data-pos=692>
+                  <span data-match=0></span>
+                </div>
+                <span data-match=0></span>
+              </div>
+              <div title="term" data-pos=692>
+                <div title="factor" data-pos=692>
+                  <div title="ident" data-pos=692>
+                    <span data-match=-1></span>
+                  </div>
+                  <div title="number" data-pos=692>
+                    <div title="_" data-pos=694>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=2></span>
+                  </div>
+                  <span data-match=2></span>
+                </div>
+                <div title="factor_op" data-pos=694>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=2></span>
+              </div>
+              <div title="term_op" data-pos=694>
+                <span data-match=-1></span>
+              </div>
+              <span data-match=2></span>
+            </div>
+            <span data-match=7></span>
+          </div>
+          <span data-match=7></span>
+        </div>
+        <div title="_" data-pos=695>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=698>
+          <div title="assignment" data-pos=698>
+            <div title="ident" data-pos=698>
+              <span data-match=-1></span>
+            </div>
+            <span data-match=-1></span>
+          </div>
+          <div title="call" data-pos=698>
+            <div title="__" data-pos=702>
+              <div title="_" data-pos=702>
+                <span data-match=1></span>
+              </div>
+              <span data-match=1></span>
+            </div>
+            <div title="ident" data-pos=703>
+              <div title="_" data-pos=706>
+                <span data-match=0></span>
+              </div>
+              <span data-match=3></span>
+            </div>
+            <span data-match=8></span>
+          </div>
+          <span data-match=8></span>
+        </div>
+        <div title="_" data-pos=707>
+          <span data-match=3></span>
+        </div>
+        <div title="statement" data-pos=710>
+          <div title="assignment" data-pos=710>
+            <div title="ident" data-pos=710>
+              <div title="_" data-pos=715>
+                <span data-match=1></span>
+              </div>
+              <span data-match=6></span>
+            </div>
+            <span data-match=-1></span>
+          </div>
+          <div title="call" data-pos=710>
+            <span data-match=-1></span>
+          </div>
+          <div title="statements" data-pos=710>
+            <span data-match=-1></span>
+          </div>
+          <div title="if" data-pos=710>
+            <span data-match=-1></span>
+          </div>
+          <div title="while" data-pos=710>
+            <span data-match=-1></span>
+          </div>
+          <div title="out" data-pos=710>
+            <div title="__" data-pos=715>
+              <div title="_" data-pos=715>
+                <span data-match=1></span>
+              </div>
+              <span data-match=1></span>
+            </div>
+            <div title="expression" data-pos=716>
+              <div title="sign" data-pos=716>
+                <div title="_" data-pos=716>
+                  <span data-match=0></span>
+                </div>
+                <span data-match=0></span>
+              </div>
+              <div title="term" data-pos=716>
+                <div title="factor" data-pos=716>
+                  <div title="ident" data-pos=716>
+                    <div title="_" data-pos=717>
+                      <span data-match=0></span>
+                    </div>
+                    <span data-match=1></span>
+                  </div>
+                  <span data-match=1></span>
+                </div>
+                <div title="factor_op" data-pos=717>
+                  <span data-match=-1></span>
+                </div>
+                <span data-match=1></span>
+              </div>
+              <div title="term_op" data-pos=717>
+                <span data-match=-1></span>
+              </div>
+              <span data-match=1></span>
+            </div>
+            <span data-match=7></span>
+          </div>
+          <span data-match=7></span>
+        </div>
+        <div title="_" data-pos=718>
+          <span data-match=1></span>
+        </div>
+        <div title="statement" data-pos=719>
+          <div title="assignment" data-pos=719>
+            <div title="ident" data-pos=719>
+              <span data-match=-1></span>
+            </div>
+            <span data-match=-1></span>
+          </div>
+          <div title="call" data-pos=719>
+            <span data-match=-1></span>
+          </div>
+          <div title="statements" data-pos=719>
+            <span data-match=-1></span>
+          </div>
+          <div title="if" data-pos=719>
+            <span data-match=-1></span>
+          </div>
+          <div title="while" data-pos=719>
+            <span data-match=-1></span>
+          </div>
+          <div title="out" data-pos=719>
+            <span data-match=-1></span>
+          </div>
+          <div title="in" data-pos=719>
+            <span data-match=-1></span>
+          </div>
+          <span data-match=0></span>
+        </div>
+        <div title="__" data-pos=722>
+          <div title="_" data-pos=722>
+            <span data-match=0></span>
+          </div>
+          <span data-match=0></span>
+        </div>
+        <span data-match=128></span>
+      </div>
+      <span data-match=128></span>
+    </div>
+    <span data-match=722></span>
+  </div>
+  <div title="_" data-pos=723>
+    <span data-match=1></span>
+  </div>
+  <span data-match=724></span>
+</div>
+
+</span>
+
+<span id="source">
+<div title="program"><div title="block"><div title="const">CONST<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="ident">m<i>&#x2423;</i></div>=<i>&#x2423;</i><i>&#x2423;</i><div title="number">7</div>,<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="ident">n<i>&#x2423;</i></div>=<i>&#x2423;</i><div title="number">85</div>;<i>&ldsh;</i><br>
+<i>&ldsh;</i><br>
+</div><div title="var">VAR<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="ident">x</div>,<i>&#x2423;</i><div title="ident">y</div>,<i>&#x2423;</i><div title="ident">z</div>,<i>&#x2423;</i><div title="ident">q</div>,<i>&#x2423;</i><div title="ident">r</div>;<i>&ldsh;</i><br>
+<i>&ldsh;</i><br>
+</div><div title="procedure">PROCEDURE<i>&#x2423;</i><div title="ident">multiply</div>;<i>&ldsh;</i><br>
+<div title="block"><div title="const"></div><div title="var">VAR<i>&#x2423;</i><div title="ident">a</div>,<i>&#x2423;</i><div title="ident">b</div>;<i>&ldsh;</i><br>
+</div><div title="procedure"></div><div title="statement"><div title="statements">BEGIN<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">a<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">x</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">b<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">y</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">z<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">0</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="while">WHILE<i>&#x2423;</i><div title="condition"><div title="compare"><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">b<i>&#x2423;</i></div></div></div></div><div title="compare_op">><i>&#x2423;</i></div><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">0<i>&#x2423;</i></div></div></div></div></div></div>DO<i>&#x2423;</i><div title="statement"><div title="statements">BEGIN<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="if">IF<i>&#x2423;</i><div title="condition"><div title="odd">ODD<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">b<i>&#x2423;</i></div></div></div></div></div></div>THEN<i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">z<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">z<i>&#x2423;</i></div></div></div><div title="term_op">+<i>&#x2423;</i></div><div title="term"><div title="factor"><div title="ident">a</div></div></div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">a<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">2<i>&#x2423;</i></div></div><div title="factor_op">*<i>&#x2423;</i></div><div title="factor"><div title="ident">a</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">b<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">b<i>&#x2423;</i></div></div><div title="factor_op">/<i>&#x2423;</i></div><div title="factor"><div title="number">2</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"></div>END<i>&ldsh;</i><br>
+</div></div></div></div>END</div></div></div>;<i>&ldsh;</i><br>
+<i>&ldsh;</i><br>
+PROCEDURE<i>&#x2423;</i><div title="ident">divide</div>;<i>&ldsh;</i><br>
+<div title="block"><div title="const"></div><div title="var">VAR<i>&#x2423;</i><div title="ident">w</div>;<i>&ldsh;</i><br>
+</div><div title="procedure"></div><div title="statement"><div title="statements">BEGIN<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">r<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">x</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">q<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">0</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">w<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">y</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="while">WHILE<i>&#x2423;</i><div title="condition"><div title="compare"><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">w<i>&#x2423;</i></div></div></div></div><div title="compare_op"><=<i>&#x2423;</i></div><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">r<i>&#x2423;</i></div></div></div></div></div></div>DO<i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">w<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">2<i>&#x2423;</i></div></div><div title="factor_op">*<i>&#x2423;</i></div><div title="factor"><div title="ident">w</div></div></div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="while">WHILE<i>&#x2423;</i><div title="condition"><div title="compare"><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">w<i>&#x2423;</i></div></div></div></div><div title="compare_op">><i>&#x2423;</i></div><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">y<i>&#x2423;</i></div></div></div></div></div></div>DO<i>&#x2423;</i><div title="statement"><div title="statements">BEGIN<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">q<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">2<i>&#x2423;</i></div></div><div title="factor_op">*<i>&#x2423;</i></div><div title="factor"><div title="ident">q</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">w<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">w<i>&#x2423;</i></div></div><div title="factor_op">/<i>&#x2423;</i></div><div title="factor"><div title="number">2</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="if">IF<i>&#x2423;</i><div title="condition"><div title="compare"><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">w<i>&#x2423;</i></div></div></div></div><div title="compare_op"><=<i>&#x2423;</i></div><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">r<i>&#x2423;</i></div></div></div></div></div></div>THEN<i>&#x2423;</i><div title="statement"><div title="statements">BEGIN<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">r<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">r<i>&#x2423;</i></div></div></div><div title="term_op">-<i>&#x2423;</i></div><div title="term"><div title="factor"><div title="ident">w</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">q<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">q<i>&#x2423;</i></div></div></div><div title="term_op">+<i>&#x2423;</i></div><div title="term"><div title="factor"><div title="number">1<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i></div></div></div></div></div></div>END<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i></div></div></div></div>END<i>&ldsh;</i><br>
+</div></div></div></div>END</div></div></div>;<i>&ldsh;</i><br>
+<i>&ldsh;</i><br>
+PROCEDURE<i>&#x2423;</i><div title="ident">gcd</div>;<i>&ldsh;</i><br>
+<div title="block"><div title="const"></div><div title="var">VAR<i>&#x2423;</i><div title="ident">f</div>,<i>&#x2423;</i><div title="ident">g</div>;<i>&ldsh;</i><br>
+</div><div title="procedure"></div><div title="statement"><div title="statements">BEGIN<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">f<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">x</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">g<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">y</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="while">WHILE<i>&#x2423;</i><div title="condition"><div title="compare"><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">f<i>&#x2423;</i></div></div></div></div><div title="compare_op">#<i>&#x2423;</i></div><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">g<i>&#x2423;</i></div></div></div></div></div></div>DO<i>&#x2423;</i><div title="statement"><div title="statements">BEGIN<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="if">IF<i>&#x2423;</i><div title="condition"><div title="compare"><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">f<i>&#x2423;</i></div></div></div></div><div title="compare_op"><<i>&#x2423;</i></div><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">g<i>&#x2423;</i></div></div></div></div></div></div>THEN<i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">g<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">g<i>&#x2423;</i></div></div></div><div title="term_op">-<i>&#x2423;</i></div><div title="term"><div title="factor"><div title="ident">f</div></div></div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="if">IF<i>&#x2423;</i><div title="condition"><div title="compare"><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">g<i>&#x2423;</i></div></div></div></div><div title="compare_op"><<i>&#x2423;</i></div><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">f<i>&#x2423;</i></div></div></div></div></div></div>THEN<i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">f<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">f<i>&#x2423;</i></div></div></div><div title="term_op">-<i>&#x2423;</i></div><div title="term"><div title="factor"><div title="ident">g</div></div></div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"></div>END</div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">z<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">f<i>&ldsh;</i><br>
+</div></div></div></div></div></div>END</div></div></div>;<i>&ldsh;</i><br>
+<i>&ldsh;</i><br>
+</div><div title="statement"><div title="statements">BEGIN<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">x<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">m</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">y<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">n</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="call">CALL<i>&#x2423;</i><div title="ident">multiply</div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">x<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">25</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">y<i>&#x2423;</i></div>:=<i>&#x2423;</i><i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">3</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="call">CALL<i>&#x2423;</i><div title="ident">divide</div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">x<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">84</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="assignment"><div title="ident">y<i>&#x2423;</i></div>:=<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="number">36</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="call">CALL<i>&#x2423;</i><div title="ident">gcd</div></div></div>;<i>&ldsh;</i><br>
+<i>&#x2423;</i><i>&#x2423;</i><div title="statement"><div title="out">write<i>&#x2423;</i><div title="expression"><div title="sign"></div><div title="term"><div title="factor"><div title="ident">z</div></div></div></div></div></div>;<i>&ldsh;</i><br>
+<div title="statement"></div>END</div></div></div>.<i>&ldsh;</i><br>
+</div>
+</span>
+
+<span id="info"></span>
+<script>
+
+//////////////////
+// tree browser //
+//////////////////
+
+var text = `CONST
+  m =  7,
+  n = 85;
+
+VAR
+  x, y, z, q, r;
+
+PROCEDURE multiply;
+VAR a, b;
+BEGIN
+  a := x;
+  b := y;
+  z := 0;
+  WHILE b > 0 DO BEGIN
+    IF ODD b THEN z := z + a;
+    a := 2 * a;
+    b := b / 2;
+  END
+END;
+
+PROCEDURE divide;
+VAR w;
+BEGIN
+  r := x;
+  q := 0;
+  w := y;
+  WHILE w <= r DO w := 2 * w;
+  WHILE w > y DO BEGIN
+    q := 2 * q;
+    w := w / 2;
+    IF w <= r THEN BEGIN
+      r := r - w;
+      q := q + 1
+    END
+  END
+END;
+
+PROCEDURE gcd;
+VAR f, g;
+BEGIN
+  f := x;
+  g := y;
+  WHILE f # g DO BEGIN
+    IF f < g THEN g := g - f;
+    IF g < f THEN f := f - g;
+  END;
+  z := f
+END;
+
+BEGIN
+  x := m;
+  y := n;
+  CALL multiply;
+  x := 25;
+  y :=  3;
+  CALL divide;
+  x := 84;
+  y := 36;
+  CALL gcd;
+  write z;
+END.
+`
+var len = text.length
+var maxlen = 80
+
+// this has to be done for every line individually so positions aren't messed with
+function htmlsafe(text){
+	buf = text
+	buf = buf.replace(/</g, "&lt")
+	buf = buf.replace(/>/g, "&gt")
+	buf = buf.replace(/&/g, "&amp;")
+	buf = buf.replace(/ /g, "&#x2423;")
+	buf = buf.replace(/\t/g, "&rarr;")
+	buf = buf.replace(/\r\n/g, "&ldsh;")
+	buf = buf.replace(/\n/g, "&ldsh;")
+	return buf
+}
+
+var divs = document.getElementById("tree").getElementsByTagName("div")
+
+for(var i=0; i<divs.length; i++){
+	div = divs[i];
+	if(i>0){
+		div.classList.add("collapsed")
+	}
+	
+	var nc = div.children.length;
+	if(nc > 1){
+		div.classList.add("hasChildren")
+	}
+	
+	var pos = 1 * div.dataset.pos
+	var matched = 1 * div.children[nc-1].dataset.match
+	
+	if(matched > maxlen){
+		matched = maxlen
+	}
+
+	var rest = len-pos-matched
+	var elli = ""
+
+	if(matched + rest > maxlen){
+		rest = maxlen - matched;
+		elli = "&hellip;"
+	}				
+
+	if(len-pos)
+
+	if( matched >= 0){
+		div.classList.add("match")
+		div.innerHTML = 
+			div.title + 
+			" <span class='matchbox'>" +
+				htmlsafe(text.substr(pos, matched)) +
+			"</span><span>" +
+				htmlsafe(text.substr(pos+matched, rest)) + elli +
+			"</span>" + div.innerHTML
+	}
+	else{
+		div.innerHTML = 
+			div.title + 
+			" <span>" +
+				htmlsafe(text.substr(pos, rest)) + elli +
+			"</span>" + div.innerHTML
+	}
+	
+	div.onclick = function(evt){
+		if(evt.target.classList.contains("collapsed")){
+			evt.target.classList.remove("collapsed")
+		}
+		else{
+			evt.target.classList.add("collapsed")
+		}
+		event.stopPropagation()
+	}
+}
+
+////////////////////
+// source browser //
+////////////////////
+
+var divs = document.getElementById("source").getElementsByTagName("div")
+var info = document.getElementById("info")
+info.onclick = function(evt){evt.stopPropagation()}
+var marked = null
+var highlighted = null
+
+function mark(dom){ // for onclick, supposed to stay marked
+	if(marked != null){
+		marked.classList.remove("mark")
+	}
+	marked = dom;
+	if(dom != null){
+		dom.classList.add("mark")
+	}
+}
+
+function highlight(dom){ // for hover effects
+	if(highlighted != null){
+		highlighted.classList.remove("highlight")
+	}
+	highlighted = dom;
+	if(dom != null){
+		dom.classList.add("highlight")
+	}
+}
+
+function showInfo(target){
+	info.innerHTML = ""
+	if(target == null){
+		info.style.visibility = "hidden"
+	}
+	else{
+		info.style.visibility = "visible"
+
+		parent = target
+		while(parent.id != "source"){
+			var a = document.createElement("a")
+			var t = document.createTextNode(parent.title)
+			a.appendChild(t)
+			a.dataset.link = parent.id
+			a.onmouseover = function(evt){
+				highlight(document.getElementById(evt.target.dataset.link))
+			}
+			a.onclick = function(evt){
+				target = document.getElementById(evt.target.dataset.link)
+				mark(target)
+				showInfo(target)
+				evt.stopPropagation()
+			}
+			a.onmouseout = function(evt){
+				highlight(null)
+			}
+			if(info.childNodes.length == 0){
+				info.appendChild(a)
+			}
+			else{
+				info.insertBefore(document.createElement("br"), info.childNodes[0]);
+				info.insertBefore(a, info.childNodes[0]);
+			}
+
+			parent = parent.parentElement
+		}
+	}
+}
+
+for(var i=0; i<divs.length; i++){
+	divs[i].id = "l" + i // leaf i
+	divs[i].onmouseover = function(evt){
+		highlight(evt.target)
+		if(marked == null){
+			showInfo(evt.target)
+		}
+	}
+	divs[i].onmouseout = function(evt){
+		highlight(null)
+		if(marked == null){
+			showInfo(null)
+		}
+	}
+	divs[i].onclick = function(evt){
+		mark(evt.target)
+		showInfo(evt.target)
+		evt.stopPropagation()
+	}
+}
+
+document.body.onclick = function(evt){
+	mark(null)
+	showInfo(null)
+}
+
+</script>
+</body>
+</html>
+

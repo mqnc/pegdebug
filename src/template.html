@@ -1,0 +1,287 @@
+<!--hack; html = R"do_not_remove(-->
+
+<html>
+<head>
+<title>pegdebug</title>
+<style>
+
+#tree {
+	float: left;
+	width: 50%;
+	height: 100%;
+	overflow: scroll;
+}
+#tree div{
+	display: block;
+	overflow: hidden;
+	color: #800000;
+	background-color:#ffbbaa;
+	font-weight: normal;
+	font-family: monospace;
+	font-size: 12pt;
+	padding: 1pt 1pt 1pt 3pt;
+	border: solid 1px grey;
+	margin: 1pt 1pt 1pt 6pt;
+	cursor: default;
+}
+#tree div.collapsed div{
+	background-color:red;
+	display: none;
+}
+#tree div.hasChildren{
+	font-weight: bold;
+	cursor: pointer;
+}
+#tree div.match{
+	color: #008080;
+	background-color:#ddffff;
+}
+#tree div span{
+	color: #808080;
+	pointer-events: none;
+	font-size: 10pt;
+	font-weight: normal;
+	font-style: italic;
+	white-space: nowrap;
+}
+#tree span.matchbox{
+	padding: 0pt 2pt 0pt 2pt;
+	color: #000000;
+	background-color:#80ff80;
+}
+
+#source {
+	float: left;
+	width: 50%;
+	height: 100%;
+	overflow: scroll;
+}
+#source div{
+	display:inline;
+	font-family:monospace;
+	padding: 0pt;
+	margin: 0pt;
+	font-size:14pt;
+	cursor:pointer;
+}
+#source i{
+	color:lightgray;
+}
+#source div.highlight,
+#source div.highlight div,
+#source div.mark,
+#source div.mark div{
+	background-color:rgba(150,220,255,0.5);
+}
+
+#info{
+	display:block;
+	position:fixed;
+	top:30px;
+	right:30px;
+	border:solid 1px black;
+	background-color:#ffffaa;
+	font-size:14pt;
+	font-family:monospace;
+	padding:20pt;
+	visibility:hidden;
+}
+#info a{
+	cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<span id="tree">
+TREE
+</span>
+
+<span id="source">
+SOURCE
+</span>
+
+<span id="info"></span>
+<script>
+
+//////////////////
+// tree browser //
+//////////////////
+
+var text = `TEXT`
+var len = text.length
+var maxlen = 80
+
+// this has to be done for every line individually so positions aren't messed with
+function htmlsafe(text){
+	buf = text
+	buf = buf.replace(/</g, "&lt")
+	buf = buf.replace(/>/g, "&gt")
+	buf = buf.replace(/&/g, "&amp;")
+	buf = buf.replace(/ /g, "&#x2423;")
+	buf = buf.replace(/\t/g, "&rarr;")
+	buf = buf.replace(/\r\n/g, "&ldsh;")
+	buf = buf.replace(/\n/g, "&ldsh;")
+	return buf
+}
+
+var divs = document.getElementById("tree").getElementsByTagName("div")
+
+for(var i=0; i<divs.length; i++){
+	div = divs[i];
+	if(i>0){
+		div.classList.add("collapsed")
+	}
+	
+	var nc = div.children.length;
+	if(nc > 1){
+		div.classList.add("hasChildren")
+	}
+	
+	var pos = 1 * div.dataset.pos
+	var matched = 1 * div.children[nc-1].dataset.match
+	
+	if(matched > maxlen){
+		matched = maxlen
+	}
+
+	var rest = len-pos-matched
+	var elli = ""
+
+	if(matched + rest > maxlen){
+		rest = maxlen - matched;
+		elli = "&hellip;"
+	}				
+
+	if(len-pos)
+
+	if( matched >= 0){
+		div.classList.add("match")
+		div.innerHTML = 
+			div.title + 
+			" <span class='matchbox'>" +
+				htmlsafe(text.substr(pos, matched)) +
+			"</span><span>" +
+				htmlsafe(text.substr(pos+matched, rest)) + elli +
+			"</span>" + div.innerHTML
+	}
+	else{
+		div.innerHTML = 
+			div.title + 
+			" <span>" +
+				htmlsafe(text.substr(pos, rest)) + elli +
+			"</span>" + div.innerHTML
+	}
+	
+	div.onclick = function(evt){
+		if(evt.target.classList.contains("collapsed")){
+			evt.target.classList.remove("collapsed")
+		}
+		else{
+			evt.target.classList.add("collapsed")
+		}
+		event.stopPropagation()
+	}
+}
+
+////////////////////
+// source browser //
+////////////////////
+
+var divs = document.getElementById("source").getElementsByTagName("div")
+var info = document.getElementById("info")
+info.onclick = function(evt){evt.stopPropagation()}
+var marked = null
+var highlighted = null
+
+function mark(dom){ // for onclick, supposed to stay marked
+	if(marked != null){
+		marked.classList.remove("mark")
+	}
+	marked = dom;
+	if(dom != null){
+		dom.classList.add("mark")
+	}
+}
+
+function highlight(dom){ // for hover effects
+	if(highlighted != null){
+		highlighted.classList.remove("highlight")
+	}
+	highlighted = dom;
+	if(dom != null){
+		dom.classList.add("highlight")
+	}
+}
+
+function showInfo(target){
+	info.innerHTML = ""
+	if(target == null){
+		info.style.visibility = "hidden"
+	}
+	else{
+		info.style.visibility = "visible"
+
+		parent = target
+		while(parent.id != "source"){
+			var a = document.createElement("a")
+			var t = document.createTextNode(parent.title)
+			a.appendChild(t)
+			a.dataset.link = parent.id
+			a.onmouseover = function(evt){
+				highlight(document.getElementById(evt.target.dataset.link))
+			}
+			a.onclick = function(evt){
+				target = document.getElementById(evt.target.dataset.link)
+				mark(target)
+				showInfo(target)
+				evt.stopPropagation()
+			}
+			a.onmouseout = function(evt){
+				highlight(null)
+			}
+			if(info.childNodes.length == 0){
+				info.appendChild(a)
+			}
+			else{
+				info.insertBefore(document.createElement("br"), info.childNodes[0]);
+				info.insertBefore(a, info.childNodes[0]);
+			}
+
+			parent = parent.parentElement
+		}
+	}
+}
+
+for(var i=0; i<divs.length; i++){
+	divs[i].id = "l" + i // leaf i
+	divs[i].onmouseover = function(evt){
+		highlight(evt.target)
+		if(marked == null){
+			showInfo(evt.target)
+		}
+	}
+	divs[i].onmouseout = function(evt){
+		highlight(null)
+		if(marked == null){
+			showInfo(null)
+		}
+	}
+	divs[i].onclick = function(evt){
+		mark(evt.target)
+		showInfo(evt.target)
+		evt.stopPropagation()
+	}
+}
+
+document.body.onclick = function(evt){
+	mark(null)
+	showInfo(null)
+}
+
+</script>
+</body>
+</html>
+
+<!--)do_not_remove"; //-->
