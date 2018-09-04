@@ -37,6 +37,9 @@
 #tree div.hasChildren:not(.collapsed)::before{
 	content: "\25BC\00A0";
 }
+#tree div:not(.hasChildren)::before{
+	content: "\25B7\00A0";
+}
 #tree div.match{
 	color: #008080;
 	background-color:#ddffff;

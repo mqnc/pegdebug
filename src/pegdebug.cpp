@@ -140,7 +140,7 @@ int Main(const vector<string> &args) {
 				auto sub = sv[i].get<substitution>();
 				result = result.replace(sub.start-start, sub.len, sub.insert);
 			}
-			result = "<div_title=\"" + rule + "\">" + result + "</div>";
+			result = "<div_title=\"" + rule + "\"_data-pos=" + to_string(start - sv.ss) + ">" + result + "</div>";
 			return substitution{start, sv.length(), result};
 		};
 
@@ -179,6 +179,7 @@ int Main(const vector<string> &args) {
 	replaceAll(source, "\t", "<i>&rarr;</i>&nbsp;&nbsp;&nbsp;");
 	replaceAll(source, "\n", "<i>&ldsh;</i><br>\n");
 	replaceAll(source, "<div_title=", "<div title=");
+	replaceAll(source, "\"_data-pos=", "\" data-pos=");
 
 	replace(html, "TREE", tree.str());
 	replace(html, "SOURCE", source);
