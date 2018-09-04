@@ -16,7 +16,7 @@
 	overflow: hidden;
 	color: #800000;
 	background-color:#ffbbaa;
-	font-weight: normal;
+	font-weight: bold;
 	font-family: monospace;
 	font-size: 12pt;
 	padding: 1pt 1pt 1pt 3pt;
@@ -29,7 +29,6 @@
 	display: none;
 }
 #tree div.hasChildren{
-	font-weight: bold;
 	cursor: pointer;
 }
 #tree div.hasChildren.collapsed::before{
@@ -139,15 +138,15 @@ for(var i=0; i<divs.length; i++){
 	if(i>0){
 		div.classList.add("collapsed")
 	}
-	
+
 	var nc = div.children.length;
 	if(nc > 1){
 		div.classList.add("hasChildren")
 	}
-	
+
 	var pos = 1 * div.dataset.pos
 	var matched = 1 * div.children[nc-1].dataset.match
-	
+
 	if(matched > maxlen){
 		matched = maxlen
 	}
@@ -158,14 +157,12 @@ for(var i=0; i<divs.length; i++){
 	if(matched + rest > maxlen){
 		rest = maxlen - matched;
 		elli = "&hellip;"
-	}				
-
-	if(len-pos)
+	}
 
 	if( matched >= 0){
 		div.classList.add("match")
-		div.innerHTML = 
-			div.title + 
+		div.innerHTML =
+			div.title +
 			" <span class='matchbox'>" +
 				htmlsafe(text.substr(pos, matched)) +
 			"</span><span>" +
@@ -173,13 +170,13 @@ for(var i=0; i<divs.length; i++){
 			"</span>" + div.innerHTML
 	}
 	else{
-		div.innerHTML = 
-			div.title + 
+		div.innerHTML =
+			div.title +
 			" <span>" +
 				htmlsafe(text.substr(pos, rest)) + elli +
 			"</span>" + div.innerHTML
 	}
-	
+
 	div.onclick = function(evt){
 		if(evt.target.classList.contains("collapsed")){
 			evt.target.classList.remove("collapsed")
