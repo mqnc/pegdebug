@@ -25,10 +25,10 @@ inline std::ostream& operator <<(std::ostream& stream, const repeat& rep) {
 // read complete file into string
 // https://stackoverflow.com/a/2602060/3825996
 bool readFile(const string &path, string &txt){
-    ifstream ifs(path.c_str());
+	ifstream ifs(path.c_str());
 	if(ifs.is_open()){
 		txt = string((std::istreambuf_iterator<char>(ifs)),
-                     (std::istreambuf_iterator<char>()));
+		             (std::istreambuf_iterator<char>()));
 		return true;
 	}
 	else{
@@ -37,10 +37,10 @@ bool readFile(const string &path, string &txt){
 }
 // write string into file
 bool writeFile(const string &path, const string &txt){
-    ofstream ofs(path);
+	ofstream ofs(path);
 	if(ofs.is_open()){
-    	ofs << txt;
-    	ofs.close();
+		ofs << txt;
+		ofs.close();
 		return true;
 	}
 	else{
@@ -50,20 +50,20 @@ bool writeFile(const string &path, const string &txt){
 
 // https://stackoverflow.com/a/3418285/3825996
 bool replace(string& str, const string& from, const string& to) {
-    size_t start_pos = str.find(from);
-    if(start_pos == string::npos)
-        return false;
-    str.replace(start_pos, from.length(), to);
-    return true;
+	size_t start_pos = str.find(from);
+	if(start_pos == string::npos)
+		return false;
+	str.replace(start_pos, from.length(), to);
+	return true;
 }
 void replaceAll(std::string& str, const std::string& from, const std::string& to) {
-    if(from.empty())
-        return;
-    size_t start_pos = 0;
-    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
-        str.replace(start_pos, from.length(), to);
-        start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
-    }
+	if(from.empty())
+		return;
+	size_t start_pos = 0;
+	while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+		str.replace(start_pos, from.length(), to);
+		start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
+	}
 }
 
 int Main(const vector<string> &args) {
@@ -78,9 +78,9 @@ int Main(const vector<string> &args) {
 	bool ok = false;
 
 	// read grammar file
-    string grammar;
+	string grammar;
 	ok = readFile(args[1], grammar);
-    if(!ok){
+	if(!ok){
 		cerr << "error reading file " << args[1] << "\n";
 		return EXIT_FAILURE;
 	}
@@ -89,29 +89,29 @@ int Main(const vector<string> &args) {
 	// read text file to parse
 	string text;
 	ok = readFile(args[2], text);
-    if(!ok){
+	if(!ok){
 		cerr << "error reading file " << args[2] << "\n";
 		return EXIT_FAILURE;
 	}
 	replaceAll(text, "\r\n", "\n");
-	
-	// create parser
-    parser parser;
 
-    parser.log = [](size_t line, size_t col, const string& msg) {
-        cerr << line << ":" << col << ": " << msg << "\n";
-    };
+	// create parser
+	parser parser;
+
+	parser.log = [](size_t line, size_t col, const string& msg) {
+		cerr << line << ":" << col << ": " << msg << "\n";
+	};
 
 	// load grammar
-    ok = parser.load_grammar(grammar.c_str());
-    if(!ok){
+	ok = parser.load_grammar(grammar.c_str());
+	if(!ok){
 		cerr << "error loading grammar\n";
 		return EXIT_FAILURE;
 	}
 
 	// pointer to text start (will be used to find current position in text)
 	const char* pStart = text.c_str();
-	
+
 	// list all reduction rules
 	const auto rules = parser.get_rule_names();
 
@@ -151,20 +151,20 @@ int Main(const vector<string> &args) {
 			indent--;
 			tree << repeat("  ", indent) << "</div>\n";
 		};
-		
+
 	}
 	parser.log = [](size_t ln, size_t col, const string& msg) {
 		cout << "(" << ln << ":" << col << ") " << msg << "\n";
 	};
-	
-    //parser.enable_packrat_parsing(); // enable packrat parsing
+
+	//parser.enable_packrat_parsing(); // enable packrat parsing
 
 	// parse
 	int indent = 0;
 	any dt = &indent;
-	
-    substitution result;
-    ok = parser.parse(text.c_str(), dt, result);
+
+	substitution result;
+	ok = parser.parse(text.c_str(), dt, result);
 
 	if(ok){
 		cout << "parsing successful\n";
@@ -174,7 +174,7 @@ int Main(const vector<string> &args) {
 	}
 
 	string source = result.insert;
-	
+
 	replaceAll(source, " ", "<i>&#x2423;</i>");
 	replaceAll(source, "\t", "<i>&rarr;</i>&nbsp;&nbsp;&nbsp;");
 	replaceAll(source, "\n", "<i>&ldsh;</i><br>\n");
@@ -185,7 +185,7 @@ int Main(const vector<string> &args) {
 	replace(html, "TEXT", text);
 
 	ok = writeFile(args[3], html);
-    if(!ok){
+	if(!ok){
 		cerr << "error writing file " << args[3] << "\n";
 		return EXIT_FAILURE;
 	}
