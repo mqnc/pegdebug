@@ -93,7 +93,7 @@ int Main(const vector<string> &args) {
 		cerr << "error reading file " << args[2] << "\n";
 		return EXIT_FAILURE;
 	}
-	replaceAll(text, "\r\n", "\n");
+	replaceAll(text, "\r\n", "\n"); // in case we open a windows text file on linux
 
 	// create parser
 	parser parser;
@@ -124,7 +124,7 @@ int Main(const vector<string> &args) {
 		string insert=""; // the text that has to be inserted
 	};
 
-	// assign callbacks for enter, match and leave of each rule
+	// assign callbacks for enter, match and leave of each rule (html wrapping of the parsee)
 	for(auto& rule:rules){
 
 		parser[rule.c_str()].enter = [rule, &pStart, &tree](const char* s, size_t n, any& dt) {
@@ -140,7 +140,7 @@ int Main(const vector<string> &args) {
 				auto sub = sv[i].get<substitution>();
 				result = result.replace(sub.start-start, sub.len, sub.insert);
 			}
-			result = "<div_title=\"" + rule + "\"_data-pos=" + to_string(start - sv.ss) + ">" + result + "</div>";
+			result = "\x01A_1" + rule + "\x01A_2" + to_string(start - sv.ss) + "\x01A_3" + result + "\x01A_4"; // use ascii SUB for later substitution
 			return substitution{start, sv.length(), result};
 		};
 
@@ -170,17 +170,32 @@ int Main(const vector<string> &args) {
 		cout << "parsing successful\n";
 	}
 	else{
-		cout << "parsing unsuccessful\n";
+		cout << "parsing not successful\n";
 	}
 
-	string source = result.insert;
+	// encode tree text for javascript string
+	replaceAll(text, "\\", "\\\\");
+	replaceAll(text, "\"", "\\\"");
+	replaceAll(text, "\n", "\\n");
+	replaceAll(text, "\t", "\\t");
+	text = "\"" + text + "\"";
 
+	// encode source text for html display
+	string source = result.insert;
+	replaceAll(source, "<", "&lt;");
+	replaceAll(source, ">", "&gt;");
+	replaceAll(source, "&", "&amp;");
 	replaceAll(source, " ", "<i>&#x2423;</i>");
 	replaceAll(source, "\t", "<i>&rarr;</i>&nbsp;&nbsp;&nbsp;");
 	replaceAll(source, "\n", "<i>&ldsh;</i><br>\n");
-	replaceAll(source, "<div_title=", "<div title=");
-	replaceAll(source, "\"_data-pos=", "\" data-pos=");
+	
+	// now do substitutions that had to be immune to the substitutions before
+	replaceAll(source, "\x01A_1", "<div title=\"");
+	replaceAll(source, "\x01A_2", "\" data-pos=");
+	replaceAll(source, "\x01A_3", ">");
+	replaceAll(source, "\x01A_4", "</div>");
 
+	// place generated texts in html
 	replace(html, "TREE", tree.str());
 	replace(html, "SOURCE", source);
 	replace(html, "TEXT", text);
