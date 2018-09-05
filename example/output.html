@@ -57,6 +57,15 @@
 	color: #000000;
 	background-color:#80ff80;
 }
+#tree div.highlight{
+	background-color:#fafaff;
+	color:#0000ff;
+	border-color:#0000ff;
+}
+#tree div.highlight span.matchbox{
+	background-color:#fafaff;
+	background-color:#80e0ff;
+}
 
 #source {
 	float: left;
@@ -3106,7 +3115,7 @@ function highlight(dom){ // for hover effects
 	}
 }
 
-function showInfo(target){
+function showInfo(target){ // shows rule stack
 	info.innerHTML = ""
 	if(target == null){
 		info.style.visibility = "hidden"
@@ -3127,6 +3136,7 @@ function showInfo(target){
 				target = document.getElementById(evt.target.dataset.link)
 				mark(target)
 				showInfo(target)
+				unfold(target)
 				evt.stopPropagation()
 			}
 			a.onmouseout = function(evt){
@@ -3136,11 +3146,54 @@ function showInfo(target){
 				info.appendChild(a)
 			}
 			else{
-				info.insertBefore(document.createElement("br"), info.childNodes[0]);
-				info.insertBefore(a, info.childNodes[0]);
+				info.insertBefore(document.createElement("br"), info.childNodes[0])
+				info.insertBefore(a, info.childNodes[0])
 			}
 
 			parent = parent.parentElement
+		}
+	}
+}
+
+function unfold(target){ // finds the element in the tree that matches the source part
+
+	// first collapse everything
+	var alldivs = document.getElementById("tree").getElementsByTagName("div")
+	for(var i=0; i<alldivs.length; i++){
+		alldivs[i].classList.add("collapsed")
+		alldivs[i].classList.remove("highlight")
+	}
+
+	// now find the node in the tree
+	var stack = []
+	var parent = target
+	while(parent.id != "source"){
+		stack.unshift(parent)
+		parent = parent.parentElement
+	}
+
+	var branch = document.getElementById("tree")
+	for(var i=0; i<stack.length; i++){
+		token = stack[i];
+
+		subbranches = branch.children
+		for(var j=0; j<subbranches.length; j++){
+			if(
+				subbranches[j].tagName == "DIV" &&
+				subbranches[j].dataset.pos == token.dataset.pos &&
+				subbranches[j].title == token.title &&
+				subbranches[j].classList.contains("match")
+			){
+				if(i < stack.length-1){ // just unfold, no highlight
+					subbranches[j].classList.remove("collapsed")
+				}
+				else{ // innermost element reached, highlight, don't unfold
+					subbranches[j].classList.add("highlight")
+					subbranches[j].scrollIntoView()
+				}
+				branch = subbranches[j]
+				break;
+			}
 		}
 	}
 }
@@ -3162,6 +3215,7 @@ for(var i=0; i<divs.length; i++){
 	divs[i].onclick = function(evt){
 		mark(evt.target)
 		showInfo(evt.target)
+		unfold(evt.target)
 		evt.stopPropagation()
 	}
 }
