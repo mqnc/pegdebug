@@ -182,9 +182,9 @@ int Main(const vector<string> &args) {
 
 	// encode source text for html display
 	string source = result.insert;
+	replaceAll(source, "&", "&amp;");
 	replaceAll(source, "<", "&lt;");
 	replaceAll(source, ">", "&gt;");
-	replaceAll(source, "&", "&amp;");
 	replaceAll(source, " ", "<i>&#x2423;</i>");
 	replaceAll(source, "\t", "<i>&rarr;</i>&nbsp;&nbsp;&nbsp;");
 	replaceAll(source, "\n", "<i>&ldsh;</i><br>\n");

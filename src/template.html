@@ -134,9 +134,9 @@ var maxlen = 80
 // this has to be done for every line individually so positions aren't messed with
 function htmlsafe(text){
 	buf = text
-	buf = buf.replace(/</g, "&lt")
-	buf = buf.replace(/>/g, "&gt")
 	buf = buf.replace(/&/g, "&amp;")
+	buf = buf.replace(/</g, "&lt;")
+	buf = buf.replace(/>/g, "&gt;")
 	buf = buf.replace(/ /g, "&#x2423;")
 	buf = buf.replace(/\t/g, "&rarr;")
 	buf = buf.replace(/\r\n/g, "&ldsh;")
