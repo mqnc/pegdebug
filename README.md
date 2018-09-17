@@ -36,6 +36,8 @@ Thanks
 
 This project is supported by
 
-![GESTALT.ROBOTICS](https://mqnc.github.io/pegdebug/img/gestalt_logo.png)
+<p align="center">
+  <img alt="GESTALT.ROBOTICS" src="https://mqnc.github.io/pegdebug/img/gestalt_logo.png">
+</p>
 
 [GESTALT Robotics GmbH](https://www.gestalt-robotics.com/) develops solutions for intelligent robotics and supplies your business with AI and automation.
