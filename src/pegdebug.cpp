@@ -1,4 +1,3 @@
-
 #include "peglib.h"
 #include <iostream>
 #include <string>
@@ -98,9 +97,9 @@ int Main(const vector<string> &args) {
 	// create parser
 	parser parser;
 
-	parser.log = [](size_t line, size_t col, const string& msg) {
+	parser.set_logger([](size_t line, size_t col, const string& msg) {
 		cerr << line << ":" << col << ": " << msg << "\n";
-	};
+	});
 
 	// load grammar
 	ok = parser.load_grammar(grammar.c_str());
@@ -113,7 +112,11 @@ int Main(const vector<string> &args) {
 	const char* pStart = text.c_str();
 
 	// list all reduction rules
-	const auto rules = parser.get_rule_names();
+        std::vector<std::string> rules;
+        rules.reserve(parser.get_grammar().size());
+        for (auto const& r : parser.get_grammar()) {
+            rules.emplace_back(r.first);
+        }
 
 	// output string for tree view
 	stringstream tree;
@@ -127,35 +130,35 @@ int Main(const vector<string> &args) {
 	// assign callbacks for enter, match and leave of each rule (html wrapping of the parsee)
 	for(auto& rule:rules){
 
-		parser[rule.c_str()].enter = [rule, &pStart, &tree](const char* s, size_t n, any& dt) {
-			auto& indent = *dt.get<int*>();
-			tree << repeat("  ", indent) << "<div title=\"" << rule << "\" data-pos=" << (s-pStart) << ">" << "\n";
-			indent++;
+		parser[rule.c_str()].enter = [rule, &pStart, &tree](const Context &c, const char* s, size_t n, any& dt) {
+			auto indent = std::any_cast<int*>(dt);
+			tree << repeat("  ", *indent) << "<div title=\"" << rule << "\" data-pos=" << (s-pStart) << ">" << "\n";
+			(*indent)++;
 		};
 
 		parser[rule.c_str()] = [rule](const SemanticValues& sv, any&) {
-			string result = sv.str();
-			const char* start = sv.c_str();
+			string result(sv.sv());
+			const char* start = sv.sv().begin();
 			for(int i = sv.size()-1; i>=0; i--){
-				auto sub = sv[i].get<substitution>();
+				auto sub = std::any_cast<substitution>(sv[i]);
 				result = result.replace(sub.start-start, sub.len, sub.insert);
 			}
 			result = "\x01A_1" + rule + "\x01A_2" + to_string(start - sv.ss) + "\x01A_3" + result + "\x01A_4"; // use ascii SUB for later substitution
-			return substitution{start, sv.length(), result};
+			return substitution{start, sv.sv().size(), result};
 		};
 
-		parser[rule.c_str()].leave = [rule, &pStart, &tree](const char* s, size_t n, size_t matchlen, any& value, any& dt) {
-			auto& indent = *dt.get<int*>();
+		parser[rule.c_str()].leave = [rule, &pStart, &tree](const Context &c, const char* s, size_t n, size_t matchlen, any& value, any& dt) {
+			auto indent = std::any_cast<int*>(dt);
 			int match = success(matchlen)? matchlen : -1;
-			tree << repeat("  ", indent) << "<span data-match=" << match << "></span>" << "\n";
-			indent--;
-			tree << repeat("  ", indent) << "</div>\n";
+			tree << repeat("  ", *indent) << "<span data-match=" << match << "></span>" << "\n";
+			(*indent)--;
+			tree << repeat("  ", *indent) << "</div>\n";
 		};
 
 	}
-	parser.log = [](size_t ln, size_t col, const string& msg) {
+	parser.set_logger([](size_t ln, size_t col, const string& msg) {
 		cout << "(" << ln << ":" << col << ") " << msg << "\n";
-	};
+	});
 
 	//parser.enable_packrat_parsing(); // enable packrat parsing
 
@@ -188,7 +191,7 @@ int Main(const vector<string> &args) {
 	replaceAll(source, " ", "<i>&#x2423;</i>");
 	replaceAll(source, "\t", "<i>&rarr;</i>&nbsp;&nbsp;&nbsp;");
 	replaceAll(source, "\n", "<i>&ldsh;</i><br>\n");
-	
+
 	// now do substitutions that had to be immune to the substitutions before
 	replaceAll(source, "\x01A_1", "<div title=\"");
 	replaceAll(source, "\x01A_2", "\" data-pos=");
