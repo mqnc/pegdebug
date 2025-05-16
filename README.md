@@ -30,14 +30,3 @@ See [here](https://mqnc.github.io/pegdebug/example/output.html) for exemplary ou
 The left side displays the recursion tree of the parsing process. When a rule matches, it is green and the matching part of the string is highlighted. If it doesn't match, it is read. Both matching and not matching rules can be unfolded and investigated by clicking them.
 
 The right side shows, what part of the text was matched by what rule. Hovering over the text makes an info window appear that shows the stack of rules that apply for the piece of text. Clicking freezes the info window and the matches for the rules in the rulestack can be highlighted by hovering over them.
-
-Thanks
-------
-
-This project is supported by
-
-<p align="center">
-  <img alt="GESTALT.ROBOTICS" src="https://mqnc.github.io/pegdebug/img/gestalt_logo.png">
-</p>
-
-[GESTALT Robotics GmbH](https://www.gestalt-robotics.com/) develops solutions for intelligent robotics and supplies your business with AI and automation.
